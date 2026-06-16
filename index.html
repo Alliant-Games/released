@@ -468,6 +468,13 @@
       background: var(--purple-lt);
     }
     footer p { font-size: 0.8rem; color: var(--muted); }
+    .footer-discord-link {
+      font-size: 0.85rem; font-weight: 500;
+      color: var(--purple-lt);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-discord-link:hover { color: var(--text); }
 
     /* ── RESPONSIVE ── */
     @media (max-width: 640px) {
@@ -673,6 +680,7 @@
   <!-- FOOTER -->
   <footer>
     <div class="footer-logo"><span></span> Released</div>
+    <a href="https://discord.com/invite/GKwTZyvsxc" class="footer-discord-link">Join our Discord →</a>
     <p>© 2026 Released. A Discord bot for teams that ship.</p>
   </footer>
 
