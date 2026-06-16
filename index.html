@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Released — Automated Release Notes, Beautifully Done</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #0D0D12;
+      --surface:   #14141C;
+      --card:      #1A1A28;
+      --border:    #2A2A3C;
+      --purple:    #7C3AED;
+      --purple-lt: #A78BFA;
+      --purple-dim:#3D1F7A;
+      --text:      #E2E8F0;
+      --muted:     #8892A4;
+      --green:     #34D399;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 48px;
+      background: rgba(13,13,18,0.8);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700; font-size: 1.25rem;
+      color: var(--text);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .nav-logo span {
+      display: inline-block; width: 10px; height: 10px;
+      border-radius: 50%; background: var(--purple-lt);
+      box-shadow: 0 0 8px var(--purple-lt);
+    }
+    .nav-cta {
+      background: var(--purple);
+      color: #fff; font-family: 'Inter', sans-serif;
+      font-size: 0.875rem; font-weight: 500;
+      padding: 8px 20px; border-radius: 8px;
+      text-decoration: none;
+      transition: background 0.2s, box-shadow 0.2s;
+    }
+    .nav-cta:hover {
+      background: #6D28D9;
+      box-shadow: 0 0 20px rgba(124,58,237,0.4);
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center;
+      padding: 120px 24px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-glow {
+      position: absolute;
+      width: 700px; height: 700px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(124,58,237,0.18) 0%, transparent 70%);
+      top: 50%; left: 50%; transform: translate(-50%, -60%);
+      pointer-events: none;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 100px; padding: 5px 14px;
+      font-size: 0.75rem; font-family: 'JetBrains Mono', monospace;
+      color: var(--purple-lt); margin-bottom: 28px;
+      position: relative; z-index: 1;
+    }
+    .hero-badge::before {
+      content: ''; display: inline-block;
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 6px var(--green);
+    }
+    h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(2.4rem, 6vw, 4.2rem);
+      font-weight: 700; line-height: 1.1;
+      letter-spacing: -0.03em;
+      max-width: 780px;
+      position: relative; z-index: 1;
+      margin-bottom: 20px;
+    }
+    h1 em {
+      font-style: normal;
+      background: linear-gradient(135deg, var(--purple-lt) 0%, #C4B5FD 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-sub {
+      font-size: 1.125rem; color: var(--muted);
+      max-width: 520px; line-height: 1.7;
+      margin-bottom: 40px;
+      position: relative; z-index: 1;
+    }
+    .hero-actions {
+      display: flex; gap: 12px; align-items: center;
+      flex-wrap: wrap; justify-content: center;
+      position: relative; z-index: 1;
+      margin-bottom: 72px;
+    }
+    .btn-primary {
+      background: var(--purple); color: #fff;
+      font-size: 1rem; font-weight: 500;
+      padding: 12px 28px; border-radius: 10px;
+      text-decoration: none;
+      transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
+      box-shadow: 0 0 30px rgba(124,58,237,0.3);
+    }
+    .btn-primary:hover {
+      background: #6D28D9; transform: translateY(-1px);
+      box-shadow: 0 0 40px rgba(124,58,237,0.5);
+    }
+    .btn-ghost {
+      color: var(--muted); font-size: 1rem;
+      text-decoration: none; padding: 12px 20px;
+      border-radius: 10px; transition: color 0.2s;
+    }
+    .btn-ghost:hover { color: var(--text); }
+
+    /* ── RELEASE NOTE CARD (signature element) ── */
+    .card-wrap {
+      position: relative; z-index: 1;
+      width: 100%; max-width: 640px;
+      animation: floatIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+    @keyframes floatIn {
+      from { opacity: 0; transform: translateY(32px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .release-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(124,58,237,0.15);
+      text-align: left;
+    }
+    .card-header {
+      display: flex; align-items: center; gap: 10px;
+      padding: 14px 18px;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+    }
+    .card-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .card-title {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem; color: var(--muted);
+      margin-left: 4px;
+    }
+    .card-body { padding: 24px; }
+    .release-version {
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem; font-weight: 500;
+      color: var(--purple-lt);
+      background: rgba(124,58,237,0.15);
+      border: 1px solid rgba(124,58,237,0.3);
+      border-radius: 6px; padding: 3px 10px;
+      margin-bottom: 12px;
+    }
+    .release-title-card {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.1rem; font-weight: 600;
+      color: var(--text); margin-bottom: 12px;
+    }
+    .release-items { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .release-items li {
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: 0.875rem; color: var(--muted); line-height: 1.5;
+    }
+    .tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem; font-weight: 500;
+      border-radius: 4px; padding: 2px 7px;
+      white-space: nowrap; margin-top: 2px;
+      flex-shrink: 0;
+    }
+    .tag-new  { background: rgba(52,211,153,0.12); color: var(--green); border: 1px solid rgba(52,211,153,0.3); }
+    .tag-fix  { background: rgba(251,191,36,0.12); color: #FCD34D; border: 1px solid rgba(251,191,36,0.3); }
+    .tag-impr { background: rgba(124,58,237,0.15); color: var(--purple-lt); border: 1px solid rgba(124,58,237,0.3); }
+    .card-footer {
+      padding: 14px 24px;
+      border-top: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      background: var(--surface);
+    }
+    .card-footer-meta { font-size: 0.75rem; color: var(--muted); font-family: 'JetBrains Mono', monospace; }
+    .card-footer-badge {
+      font-size: 0.7rem; font-family: 'JetBrains Mono', monospace;
+      color: var(--purple-lt); display: flex; align-items: center; gap: 5px;
+    }
+    .card-footer-badge::before {
+      content: ''; display: inline-block;
+      width: 5px; height: 5px; border-radius: 50%;
+      background: var(--purple-lt); box-shadow: 0 0 5px var(--purple-lt);
+    }
+
+    /* ── FEATURES ── */
+    .features {
+      padding: 100px 24px;
+      max-width: 1100px; margin: 0 auto;
+    }
+    .section-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem; color: var(--purple-lt);
+      letter-spacing: 0.12em; text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+    .section-heading {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 700; line-height: 1.2;
+      letter-spacing: -0.02em;
+      max-width: 560px; margin-bottom: 60px;
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    .feature-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 28px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .feature-card:hover {
+      border-color: var(--purple-dim);
+      box-shadow: 0 0 30px rgba(124,58,237,0.1);
+    }
+    .feature-icon {
+      width: 44px; height: 44px; border-radius: 10px;
+      background: rgba(124,58,237,0.15);
+      border: 1px solid rgba(124,58,237,0.25);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.25rem; margin-bottom: 18px;
+    }
+    .feature-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1rem; font-weight: 600;
+      margin-bottom: 8px; color: var(--text);
+    }
+    .feature-desc { font-size: 0.9rem; color: var(--muted); line-height: 1.65; }
+
+    /* ── HOW IT WORKS ── */
+    .how {
+      padding: 80px 24px;
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .how-inner { max-width: 1100px; margin: 0 auto; }
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 40px; margin-top: 56px;
+    }
+    .step { position: relative; }
+    .step-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem; color: var(--purple-lt);
+      margin-bottom: 12px;
+    }
+    .step-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1rem; font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .step-desc { font-size: 0.875rem; color: var(--muted); line-height: 1.6; }
+
+    /* ── CTA ── */
+    .cta-section {
+      padding: 120px 24px;
+      text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .cta-glow {
+      position: absolute;
+      width: 600px; height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(ellipse, rgba(124,58,237,0.15) 0%, transparent 70%);
+      top: 50%; left: 50%; transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+    .cta-section h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 700; letter-spacing: -0.03em;
+      line-height: 1.15; margin-bottom: 18px;
+      position: relative; z-index: 1;
+    }
+    .cta-section p {
+      color: var(--muted); font-size: 1.05rem;
+      max-width: 460px; margin: 0 auto 40px;
+      position: relative; z-index: 1;
+    }
+    .cta-section .btn-primary { position: relative; z-index: 1; font-size: 1.05rem; padding: 14px 36px; }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 28px 48px;
+      border-top: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 12px;
+    }
+    .footer-logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700; font-size: 0.95rem; color: var(--muted);
+      display: flex; align-items: center; gap: 7px;
+    }
+    .footer-logo span {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--purple-lt);
+    }
+    footer p { font-size: 0.8rem; color: var(--muted); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 640px) {
+      nav { padding: 16px 20px; }
+      .features, .how-inner { padding-left: 0; padding-right: 0; }
+      footer { padding: 24px 20px; flex-direction: column; align-items: flex-start; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .card-wrap { animation: none; }
+      * { transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">
+      <span></span> Released
+    </div>
+    <a href="#try" class="nav-cta">Try it free →</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-glow"></div>
+
+    <div class="hero-badge">automated release notes</div>
+
+    <h1>Ship faster.<br /><em>Communicate better.</em></h1>
+    <p class="hero-sub">
+      Released turns your commits, PRs, and deploy events into polished release notes — automatically, every time you ship.
+    </p>
+
+    <div class="hero-actions">
+      <a href="#try" class="btn-primary">Try it free →</a>
+      <a href="#how" class="btn-ghost">See how it works</a>
+    </div>
+
+    <!-- Signature: live release note card -->
+    <div class="card-wrap">
+      <div class="release-card">
+        <div class="card-header">
+          <div class="card-dot" style="background:#FF5F57"></div>
+          <div class="card-dot" style="background:#FFBD2E"></div>
+          <div class="card-dot" style="background:#28CA41"></div>
+          <span class="card-title">released-bot · just now</span>
+        </div>
+        <div class="card-body">
+          <div class="release-version">v2.4.0</div>
+          <div class="release-title-card">Dashboard &amp; Performance Update</div>
+          <ul class="release-items">
+            <li>
+              <span class="tag tag-new">NEW</span>
+              Real-time collaboration — multiple users can now edit simultaneously
+            </li>
+            <li>
+              <span class="tag tag-impr">IMPROVED</span>
+              Dashboard load time reduced by 60% with smarter data fetching
+            </li>
+            <li>
+              <span class="tag tag-fix">FIX</span>
+              Resolved timezone offset bug affecting scheduled exports
+            </li>
+            <li>
+              <span class="tag tag-new">NEW</span>
+              Webhook support for Slack, Teams, and Discord notifications
+            </li>
+          </ul>
+        </div>
+        <div class="card-footer">
+          <span class="card-footer-meta">generated in 1.2s · 4 changes detected</span>
+          <span class="card-footer-badge">Released</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="features" id="features">
+    <div class="section-label">// features</div>
+    <h2 class="section-heading">Everything you need to keep users in the loop</h2>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">⚡</div>
+        <div class="feature-name">Instant generation</div>
+        <p class="feature-desc">Connect your repo once. Released listens for merges and deploys, then generates structured release notes before your team even notices the pipeline finished.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🎨</div>
+        <div class="feature-name">Your brand, your voice</div>
+        <p class="feature-desc">Customize tone, formatting, and tagging rules. Notes come out sounding like your team wrote them — because they did, just without the manual effort.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📡</div>
+        <div class="feature-name">Publish everywhere</div>
+        <p class="feature-desc">Push notes to your changelog, Slack, Discord, or your own endpoint. One source of truth, distributed to wherever your users actually are.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔍</div>
+        <div class="feature-name">Smart categorization</div>
+        <p class="feature-desc">Released automatically distinguishes new features, improvements, and bug fixes — giving users just the right context without any manual tagging.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔗</div>
+        <div class="feature-name">Plays well with others</div>
+        <p class="feature-desc">GitHub, GitLab, Jira, Linear, and more. Released slots into your existing stack without requiring you to change how you work.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📊</div>
+        <div class="feature-name">Release analytics</div>
+        <p class="feature-desc">See which releases your users actually read, which features landed, and how your cadence has trended over time — all in one dashboard.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="how" id="how">
+    <div class="how-inner">
+      <div class="section-label">// how it works</div>
+      <h2 class="section-heading">Up and running in minutes</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">01 —</div>
+          <div class="step-title">Connect your repo</div>
+          <p class="step-desc">Link GitHub or GitLab with one click. No config files, no YAML to write.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">02 —</div>
+          <div class="step-title">Set your rules</div>
+          <p class="step-desc">Tell Released which branches trigger notes and how you want them formatted. Takes about two minutes.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">03 —</div>
+          <div class="step-title">Ship something</div>
+          <p class="step-desc">Merge a PR or trigger a deploy. Released detects it, reads your commits, and drafts the notes.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">04 —</div>
+          <div class="step-title">Publish automatically</div>
+          <p class="step-desc">Notes go live on your changelog and to any connected channels — zero manual effort required.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section" id="try">
+    <div class="cta-glow"></div>
+    <h2>Your users deserve to<br /><em style="font-style:normal;background:linear-gradient(135deg,#A78BFA,#C4B5FD);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">know what you shipped.</em></h2>
+    <p>Start generating release notes in the next five minutes — no credit card required.</p>
+    <a href="#" class="btn-primary">Try Released free →</a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo"><span></span> Released</div>
+    <p>© 2026 Released. Built for teams that ship.</p>
+  </footer>
+
+</body>
+</html>
