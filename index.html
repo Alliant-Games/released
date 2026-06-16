@@ -3,11 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-  <link rel="manifest" href="/site.webmanifest">
-  <title>Released — Automated Release Notes, Beautifully Done</title>
+  <title>Released — Clean Release Notes for Your Discord</title>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -200,6 +196,18 @@
       display: flex; align-items: flex-start; gap: 10px;
       font-size: 0.875rem; color: var(--muted); line-height: 1.5;
     }
+    .attachment-chip {
+      display: inline-flex; align-items: center; gap: 8px;
+      margin-top: 16px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px 14px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+    .attachment-icon { font-size: 0.9rem; }
     .tag {
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.65rem; font-weight: 500;
@@ -367,22 +375,22 @@
     <div class="nav-logo">
       <span></span> Released
     </div>
-    <a href="#try" class="nav-cta">Try it free →</a>
+    <a href="#try" class="nav-cta">Add to Discord →</a>
   </nav>
 
   <!-- HERO -->
   <section class="hero">
     <div class="hero-glow"></div>
 
-    <div class="hero-badge">automated release notes</div>
+    <div class="hero-badge">discord bot</div>
 
-    <h1>Ship faster.<br /><em>Communicate better.</em></h1>
+    <h1>Release notes that<br /><em>actually look good.</em></h1>
     <p class="hero-sub">
-      Released turns your commits, PRs, and deploy events into polished release notes — automatically, every time you ship.
+      Released is a Discord bot that turns your feature and fix notes into a clean, formatted post in any channel — complete with a downloadable .md file for the record.
     </p>
 
     <div class="hero-actions">
-      <a href="#try" class="btn-primary">Try it free →</a>
+      <a href="#try" class="btn-primary">Add to Discord →</a>
       <a href="#how" class="btn-ghost">See how it works</a>
     </div>
 
@@ -393,7 +401,7 @@
           <div class="card-dot" style="background:#FF5F57"></div>
           <div class="card-dot" style="background:#FFBD2E"></div>
           <div class="card-dot" style="background:#28CA41"></div>
-          <span class="card-title">released-bot · just now</span>
+          <span class="card-title">#release-notes · just now</span>
         </div>
         <div class="card-body">
           <div class="release-version">v2.4.0</div>
@@ -405,7 +413,7 @@
             </li>
             <li>
               <span class="tag tag-impr">IMPROVED</span>
-              Dashboard load time reduced by 60% with smarter data fetching
+              Dashboard load time reduced by 60%
             </li>
             <li>
               <span class="tag tag-fix">FIX</span>
@@ -413,12 +421,15 @@
             </li>
             <li>
               <span class="tag tag-new">NEW</span>
-              Webhook support for Slack, Teams, and Discord notifications
+              Webhook support for Slack and Discord notifications
             </li>
           </ul>
+          <div class="attachment-chip">
+            <span class="attachment-icon">📄</span> notes-v2.4.0.md
+          </div>
         </div>
         <div class="card-footer">
-          <span class="card-footer-meta">generated in 1.2s · 4 changes detected</span>
+          <span class="card-footer-meta">posted via /release · notes.md attached</span>
           <span class="card-footer-badge">Released</span>
         </div>
       </div>
@@ -428,37 +439,37 @@
   <!-- FEATURES -->
   <section class="features" id="features">
     <div class="section-label">// features</div>
-    <h2 class="section-heading">Everything you need to keep users in the loop</h2>
+    <h2 class="section-heading">Everything you need to post clean release notes</h2>
     <div class="features-grid">
       <div class="feature-card">
-        <div class="feature-icon">⚡</div>
-        <div class="feature-name">Instant generation</div>
-        <p class="feature-desc">Connect your repo once. Released listens for merges and deploys, then generates structured release notes before your team even notices the pipeline finished.</p>
+        <div class="feature-icon">📝</div>
+        <div class="feature-name">Simple input, clean output</div>
+        <p class="feature-desc">Fill in your version, features, and fixes through a guided command. Released formats it into a tidy, readable post — no Markdown wrangling required.</p>
       </div>
       <div class="feature-card">
-        <div class="feature-icon">🎨</div>
-        <div class="feature-name">Your brand, your voice</div>
-        <p class="feature-desc">Customize tone, formatting, and tagging rules. Notes come out sounding like your team wrote them — because they did, just without the manual effort.</p>
+        <div class="feature-icon">📎</div>
+        <div class="feature-name">.md file included</div>
+        <p class="feature-desc">Every post comes with a downloadable .md attachment, so your release notes are archived in a clean, portable format from day one.</p>
       </div>
       <div class="feature-card">
-        <div class="feature-icon">📡</div>
-        <div class="feature-name">Publish everywhere</div>
-        <p class="feature-desc">Push notes to your changelog, Slack, Discord, or your own endpoint. One source of truth, distributed to wherever your users actually are.</p>
+        <div class="feature-icon">💬</div>
+        <div class="feature-name">Posts right in Discord</div>
+        <p class="feature-desc">No dashboard to check, no separate changelog site to maintain. Your release notes show up exactly where your community already is.</p>
       </div>
       <div class="feature-card">
-        <div class="feature-icon">🔍</div>
-        <div class="feature-name">Smart categorization</div>
-        <p class="feature-desc">Released automatically distinguishes new features, improvements, and bug fixes — giving users just the right context without any manual tagging.</p>
+        <div class="feature-icon">🏷️</div>
+        <div class="feature-name">Tag your changes</div>
+        <p class="feature-desc">Mark each line as a new feature, an improvement, or a fix. Readers get instant visual context for what actually changed.</p>
       </div>
       <div class="feature-card">
-        <div class="feature-icon">🔗</div>
-        <div class="feature-name">Plays well with others</div>
-        <p class="feature-desc">GitHub, GitLab, Jira, Linear, and more. Released slots into your existing stack without requiring you to change how you work.</p>
+        <div class="feature-icon">⚙️</div>
+        <div class="feature-name">Pick your channel</div>
+        <p class="feature-desc">Choose exactly which channel each release gets posted to — keep announcements separate from general chat without any extra setup.</p>
       </div>
       <div class="feature-card">
-        <div class="feature-icon">📊</div>
-        <div class="feature-name">Release analytics</div>
-        <p class="feature-desc">See which releases your users actually read, which features landed, and how your cadence has trended over time — all in one dashboard.</p>
+        <div class="feature-icon">🪶</div>
+        <div class="feature-name">Lightweight by design</div>
+        <p class="feature-desc">No integrations to configure, no repo access required. Just you, the command, and a release note that looks like you meant it.</p>
       </div>
     </div>
   </section>
@@ -471,23 +482,23 @@
       <div class="steps">
         <div class="step">
           <div class="step-num">01 —</div>
-          <div class="step-title">Connect your repo</div>
-          <p class="step-desc">Link GitHub or GitLab with one click. No config files, no YAML to write.</p>
+          <div class="step-title">Add the bot</div>
+          <p class="step-desc">Invite Released to your Discord server with one click. No permissions beyond posting in the channels you choose.</p>
         </div>
         <div class="step">
           <div class="step-num">02 —</div>
-          <div class="step-title">Set your rules</div>
-          <p class="step-desc">Tell Released which branches trigger notes and how you want them formatted. Takes about two minutes.</p>
+          <div class="step-title">Run the command</div>
+          <p class="step-desc">Use a simple slash command to enter your version number and list out what's new, improved, or fixed.</p>
         </div>
         <div class="step">
           <div class="step-num">03 —</div>
-          <div class="step-title">Ship something</div>
-          <p class="step-desc">Merge a PR or trigger a deploy. Released detects it, reads your commits, and drafts the notes.</p>
+          <div class="step-title">Pick a channel</div>
+          <p class="step-desc">Tell Released where to post — your #announcements or #release-notes channel, or anywhere else you'd like.</p>
         </div>
         <div class="step">
           <div class="step-num">04 —</div>
-          <div class="step-title">Publish automatically</div>
-          <p class="step-desc">Notes go live on your changelog and to any connected channels — zero manual effort required.</p>
+          <div class="step-title">It's posted</div>
+          <p class="step-desc">Released formats everything into a clean message with a .md attachment, ready for your community to read.</p>
         </div>
       </div>
     </div>
@@ -496,15 +507,15 @@
   <!-- CTA -->
   <section class="cta-section" id="try">
     <div class="cta-glow"></div>
-    <h2>Your users deserve to<br /><em style="font-style:normal;background:linear-gradient(135deg,#A78BFA,#C4B5FD);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">know what you shipped.</em></h2>
-    <p>Start generating release notes in the next five minutes — no credit card required.</p>
-    <a href="#" class="btn-primary">Try Released free →</a>
+    <h2>Your community deserves to<br /><em style="font-style:normal;background:linear-gradient(135deg,#A78BFA,#C4B5FD);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">know what you shipped.</em></h2>
+    <p>Add Released to your Discord server and post your first release note in under a minute.</p>
+    <a href="#" class="btn-primary">Add to Discord →</a>
   </section>
 
   <!-- FOOTER -->
   <footer>
     <div class="footer-logo"><span></span> Released</div>
-    <p>© 2026 Released. Built for teams that ship.</p>
+    <p>© 2026 Released. A Discord bot for teams that ship.</p>
   </footer>
 
 </body>
