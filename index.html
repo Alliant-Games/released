@@ -309,6 +309,84 @@
     }
     .step-desc { font-size: 0.875rem; color: var(--muted); line-height: 1.6; }
 
+    /* ── PRICING ── */
+    .pricing {
+      padding: 100px 24px;
+      max-width: 1100px; margin: 0 auto;
+    }
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      max-width: 720px;
+    }
+    .price-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px;
+      display: flex; flex-direction: column;
+      position: relative;
+    }
+    .price-card-featured {
+      border-color: var(--purple);
+      box-shadow: 0 0 40px rgba(124,58,237,0.15);
+    }
+    .price-badge {
+      position: absolute; top: -12px; right: 28px;
+      background: var(--purple);
+      color: #fff;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem; font-weight: 500;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      padding: 4px 10px; border-radius: 100px;
+    }
+    .price-name {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem; color: var(--purple-lt);
+      letter-spacing: 0.08em; text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .price-amount {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2.4rem; font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+    .price-period {
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem; font-weight: 400;
+      color: var(--muted);
+    }
+    .price-tagline {
+      font-size: 0.9rem; color: var(--muted);
+      margin-bottom: 24px; line-height: 1.6;
+    }
+    .price-features {
+      list-style: none;
+      display: flex; flex-direction: column; gap: 12px;
+      margin-bottom: 32px; flex-grow: 1;
+    }
+    .price-features li {
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: 0.9rem; color: var(--text);
+    }
+    .check {
+      color: var(--green); font-weight: 600;
+      flex-shrink: 0;
+    }
+    .btn-card {
+      text-align: center;
+      width: 100%;
+      border: 1px solid var(--border);
+      padding: 12px 20px;
+      border-radius: 10px;
+      display: block;
+      font-size: 0.95rem;
+    }
+    .price-card .btn-primary.btn-card { border: none; }
+
     /* ── CTA ── */
     .cta-section {
       padding: 120px 24px;
@@ -375,7 +453,7 @@
     <div class="nav-logo">
       <span></span> Released
     </div>
-    <a href="#try" class="nav-cta">Add to Discord →</a>
+    <a href="https://ptb.discord.com/oauth2/authorize?client_id=1434224007590449323" class="nav-cta">Add to Discord →</a>
   </nav>
 
   <!-- HERO -->
@@ -390,7 +468,7 @@
     </p>
 
     <div class="hero-actions">
-      <a href="#try" class="btn-primary">Add to Discord →</a>
+      <a href="https://ptb.discord.com/oauth2/authorize?client_id=1434224007590449323" class="btn-primary">Add to Discord →</a>
       <a href="#how" class="btn-ghost">See how it works</a>
     </div>
 
@@ -504,12 +582,45 @@
     </div>
   </section>
 
+  <!-- PRICING -->
+  <section class="pricing" id="pricing">
+    <div class="section-label">// pricing</div>
+    <h2 class="section-heading">Start free. Upgrade when you outgrow it.</h2>
+    <div class="pricing-grid">
+      <div class="price-card">
+        <div class="price-name">Free</div>
+        <div class="price-amount">$0<span class="price-period">/month</span></div>
+        <p class="price-tagline">For a single project that just needs the basics.</p>
+        <ul class="price-features">
+          <li><span class="check">✓</span> 1 project</li>
+          <li><span class="check">✓</span> 1 release note per day</li>
+          <li><span class="check">✓</span> .md file with every post</li>
+          <li><span class="check">✓</span> Post to any channel</li>
+        </ul>
+        <a href="https://ptb.discord.com/oauth2/authorize?client_id=1434224007590449323" class="btn-ghost btn-card">Add to Discord</a>
+      </div>
+      <div class="price-card price-card-featured">
+        <div class="price-badge">Premium</div>
+        <div class="price-name">Premium</div>
+        <div class="price-amount">$4.99<span class="price-period">/month</span></div>
+        <p class="price-tagline">For teams shipping across multiple projects.</p>
+        <ul class="price-features">
+          <li><span class="check">✓</span> Up to 25 projects</li>
+          <li><span class="check">✓</span> Unlimited release notes per day, per project</li>
+          <li><span class="check">✓</span> .md file with every post</li>
+          <li><span class="check">✓</span> Post to any channel</li>
+        </ul>
+        <a href="https://ptb.discord.com/discovery/applications/1434224007590449323/store" class="btn-primary btn-card">Upgrade to Premium</a>
+      </div>
+    </div>
+  </section>
+
   <!-- CTA -->
   <section class="cta-section" id="try">
     <div class="cta-glow"></div>
     <h2>Your community deserves to<br /><em style="font-style:normal;background:linear-gradient(135deg,#A78BFA,#C4B5FD);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">know what you shipped.</em></h2>
     <p>Add Released to your Discord server and post your first release note in under a minute.</p>
-    <a href="#" class="btn-primary">Add to Discord →</a>
+    <a href="https://ptb.discord.com/oauth2/authorize?client_id=1434224007590449323" class="btn-primary">Add to Discord →</a>
   </section>
 
   <!-- FOOTER -->
