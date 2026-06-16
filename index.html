@@ -44,15 +44,12 @@
       border-bottom: 1px solid var(--border);
     }
     .nav-logo {
-      font-family: 'Space Grotesk', sans-serif;
-      font-weight: 700; font-size: 1.25rem;
-      color: var(--text);
-      display: flex; align-items: center; gap: 8px;
+      display: flex; align-items: center;
     }
-    .nav-logo span {
-      display: inline-block; width: 10px; height: 10px;
-      border-radius: 50%; background: var(--purple-lt);
-      box-shadow: 0 0 8px var(--purple-lt);
+    .nav-logo img {
+      height: 28px;
+      width: auto;
+      display: block;
     }
     .nav-cta {
       background: var(--purple);
@@ -489,7 +486,7 @@
   <!-- NAV -->
   <nav>
     <div class="nav-logo">
-      <span></span> Released
+      <img src="assets/released-logo.png" alt="Released" />
     </div>
     <a href="https://ptb.discord.com/oauth2/authorize?client_id=1434224007590449323" class="nav-cta">Add to Discord →</a>
   </nav>
